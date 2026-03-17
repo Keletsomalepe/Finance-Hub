@@ -562,7 +562,14 @@ async function doLogout(){
 }
 
 // ─── SESSION LISTENER ─────────────────────────────────────────────────
+// Safety timeout — if Supabase takes too long, show login screen anyway
+const loadTimeout=setTimeout(()=>{
+  document.getElementById('loading-screen').style.display='none';
+  document.getElementById('auth-screen').style.display='flex';
+},5000);
+
 sb.auth.onAuthStateChange(async(event,session)=>{
+  clearTimeout(loadTimeout);
   document.getElementById('loading-screen').style.display='none';
 
   // User clicked the password reset link in their email
@@ -979,6 +986,23 @@ function renderSuggestions(){
 }
 
 function render(){renderPortfolio();renderBudget();renderExpenses();renderOverview();renderSuggestions();renderDividends();}
+
+// ─── IMMEDIATE SESSION CHECK ──────────────────────────────────────────
+// Check for existing session right away, don't wait for auth state change
+(async()=>{
+  try{
+    const {data:{session}}=await sb.auth.getSession();
+    if(!session){
+      clearTimeout(loadTimeout);
+      document.getElementById('loading-screen').style.display='none';
+      document.getElementById('auth-screen').style.display='flex';
+    }
+  }catch(e){
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('auth-screen').style.display='flex';
+    console.error('Session check failed:',e);
+  }
+})();
 </script>
 </body>
 </html>
