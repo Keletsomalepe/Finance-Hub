@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Finance Hub"/>
-<meta name="theme-color" content="#080c14"/>
-<title>Finance Hub</title>
+<meta name="apple-mobile-web-app-title" content="Leruo"/>
+<meta name="theme-color" content="#0a0d0a"/>
+<title>Leruo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#080c14;--bg2:#0f1520;--bg3:#161e2e;--bg4:#1d2840;--border:rgba(99,133,200,0.12);--border2:rgba(99,133,200,0.22);--text:#e8edf5;--text2:#7a8db0;--text3:#3d4f6e;--blue:#4d9cf8;--blue2:#2563eb;--green:#22c97a;--red:#f05252;--amber:#f59e0b;--purple:#a78bfa;--teal:#2dd4bf;--coral:#fb7185;--olive:#84cc16;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--r:14px;--rs:9px;}
+:root{--bg:#080d08;--bg2:#0e140e;--bg3:#141d14;--bg4:#1a271a;--border:rgba(90,160,90,0.12);--border2:rgba(90,160,90,0.22);--text:#edf5ed;--text2:#7aaa7a;--text3:#3d6e3d;--blue:#4d9cf8;--blue2:#2563eb;--green:#22c97a;--red:#f05252;--amber:#f59e0b;--purple:#a78bfa;--teal:#2dd4bf;--coral:#fb7185;--olive:#84cc16;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--r:14px;--rs:9px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;}
 #app{display:flex;flex-direction:column;height:100%;padding-top:var(--safe-top);}
@@ -138,21 +138,46 @@ select.finput{cursor:pointer;}
 #reset-screen{position:fixed;inset:0;z-index:1001;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
 .forgot-link{font-size:12px;color:var(--blue);text-align:center;margin-top:10px;cursor:pointer;background:none;border:none;width:100%;font-family:'DM Sans',sans-serif;}
 .forgot-link:hover{text-decoration:underline;}
+/* THEME SWITCHER */
+.theme-swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border .2s;flex-shrink:0;}
+.theme-swatch.active{border-color:var(--blue);}
+.theme-swatch:hover{transform:scale(1.1);}
+/* QUOTE CARD */
+.quote-card{background:linear-gradient(135deg,rgba(77,156,248,0.1),rgba(77,156,248,0.03));border:0.5px solid rgba(77,156,248,0.2);border-radius:var(--r);padding:16px;margin-bottom:11px;position:relative;overflow:hidden;}
+.quote-mark{font-size:48px;line-height:1;color:rgba(77,156,248,0.15);font-family:serif;position:absolute;top:-4px;left:10px;}
+.quote-text{font-size:14px;line-height:1.7;color:var(--text);font-style:italic;padding-left:4px;margin-bottom:8px;}
+.quote-author{font-size:11px;color:var(--blue);font-weight:500;}
+.quote-refresh{background:none;border:none;cursor:pointer;color:var(--text3);font-size:12px;float:right;margin-top:-20px;font-family:'DM Sans',sans-serif;}
+.quote-refresh:hover{color:var(--blue);}
+/* CONTENT CARDS */
+.content-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:9px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;}
+.content-card:active{background:var(--bg3);}
+.content-emoji{font-size:24px;flex-shrink:0;margin-top:1px;}
+.content-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;margin-bottom:4px;font-weight:500;}
+.tag-book{background:rgba(167,139,250,0.12);color:var(--purple);}
+.tag-article{background:rgba(77,156,248,0.12);color:var(--blue);}
+.tag-video{background:rgba(240,82,82,0.12);color:var(--red);}
+.tag-podcast{background:rgba(245,158,11,0.12);color:var(--amber);}
+.tag-info{background:rgba(34,201,122,0.12);color:var(--green);}
+.content-title{font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text);}
+.content-desc{font-size:11px;color:var(--text2);line-height:1.5;}
+.sug-section-header{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin:16px 0 10px;}
 </style>
 </head>
 <body>
 
 <!-- LOADING -->
 <div id="loading-screen">
-  <div class="auth-logo" style="font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--blue);letter-spacing:-1px;">FinanceHub</div>
+  <div class="auth-logo" style="font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--blue);letter-spacing:-1px;">Leruo</div>
+  <div style="font-size:12px;color:var(--text2);margin-bottom:16px;">Sow wisely. Track growth. Reap wealth.</div>
   <div class="spinner"></div>
   <div class="loading-text" id="loading-text">Connecting to cloud...</div>
 </div>
 
 <!-- AUTH -->
 <div id="auth-screen">
-  <div class="auth-logo">FinanceHub</div>
-  <div class="auth-sub">Your personal wealth dashboard</div>
+  <div class="auth-logo">Leruo</div>
+  <div class="auth-sub">Sow wisely. Track growth. Reap wealth.</div>
   <div class="auth-card">
     <div class="auth-tabs">
       <div class="auth-tab active" onclick="switchAuthTab('login')">Sign in</div>
@@ -177,7 +202,7 @@ select.finput{cursor:pointer;}
 
 <!-- FORGOT PASSWORD SCREEN -->
 <div id="reset-screen">
-  <div class="auth-logo">FinanceHub</div>
+  <div class="auth-logo">Leruo</div>
   <div class="auth-sub" id="reset-sub">Enter your email to receive a reset link</div>
   <div class="auth-card" id="reset-card">
     <div class="fgroup"><label class="flabel">Email address</label><input class="finput" type="email" id="r-email" placeholder="you@email.com" autocomplete="email"/></div>
@@ -189,7 +214,7 @@ select.finput{cursor:pointer;}
 
 <!-- NEW PASSWORD SCREEN (shown after clicking email link) -->
 <div id="newpass-screen" style="position:fixed;inset:0;z-index:1001;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;">
-  <div class="auth-logo">FinanceHub</div>
+  <div class="auth-logo">Leruo</div>
   <div class="auth-sub">Set your new password</div>
   <div class="auth-card">
     <div class="fgroup"><label class="flabel">New password</label><input class="finput" type="password" id="np-pass" placeholder="Min 6 characters" autocomplete="new-password"/></div>
@@ -204,11 +229,19 @@ select.finput{cursor:pointer;}
   <div class="topbar">
     <div class="topbar-row">
       <div style="display:flex;align-items:center;gap:8px;">
-        <div class="app-title">FinanceHub</div>
+        <div class="app-title">Leruo</div>
         <span class="sync-dot" id="sync-dot" title="Synced"></span>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <select class="month-sel" id="month-picker" onchange="setMonth(this.value)"></select>
+        <!-- THEME SWATCHES -->
+        <div style="display:flex;gap:5px;align-items:center;">
+          <div class="theme-swatch active" id="swatch-dark" style="background:#080d08;" onclick="setTheme('dark')" title="Dark green"></div>
+          <div class="theme-swatch" id="swatch-midnight" style="background:#080c14;" onclick="setTheme('midnight')" title="Midnight blue"></div>
+          <div class="theme-swatch" id="swatch-charcoal" style="background:#111111;" onclick="setTheme('charcoal')" title="Charcoal"></div>
+          <div class="theme-swatch" id="swatch-wine" style="background:#140810;" onclick="setTheme('wine')" title="Deep wine"></div>
+          <div class="theme-swatch" id="swatch-light" style="background:#f0f4f8;border:1px solid #ddd;" onclick="setTheme('light')" title="Light"></div>
+        </div>
         <div class="user-avatar" id="user-avatar">?</div>
         <button class="logout-btn" onclick="doLogout()">Sign out</button>
       </div>
@@ -360,8 +393,37 @@ select.finput{cursor:pointer;}
 
     <!-- SUGGESTIONS -->
     <div class="page" id="page-suggestions">
-      <div style="font-size:12px;color:var(--text2);margin-bottom:13px;line-height:1.6;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--rs);padding:12px 13px;" id="sug-intro"></div>
-      <div id="suggestions-list"></div>
+      <!-- Daily Quote -->
+      <div class="quote-card" id="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text" id="quote-text">Loading today's quote...</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="quote-author" id="quote-author"></div>
+          <button class="quote-refresh" onclick="refreshQuote()">↻ New quote</button>
+        </div>
+      </div>
+      <!-- Inner tabs -->
+      <div class="tab-row">
+        <div class="tab active" id="sug-tab-tips" onclick="switchSugTab('tips')">💡 Tips</div>
+        <div class="tab" id="sug-tab-reads" onclick="switchSugTab('reads')">📚 Reads</div>
+        <div class="tab" id="sug-tab-learn" onclick="switchSugTab('learn')">🎓 Learn</div>
+      </div>
+      <div id="sug-view-tips">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:13px;line-height:1.6;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--rs);padding:12px 13px;" id="sug-intro"></div>
+        <div id="suggestions-list"></div>
+      </div>
+      <div id="sug-view-reads" style="display:none;">
+        <div class="sug-section-header">📖 Book recommendations</div>
+        <div id="books-list"></div>
+        <div class="sug-section-header" style="margin-top:20px;">📰 Weekly wealth articles</div>
+        <div id="articles-list"></div>
+      </div>
+      <div id="sug-view-learn" style="display:none;">
+        <div class="sug-section-header">🎧 Podcasts & videos</div>
+        <div id="learn-list"></div>
+        <div class="sug-section-header" style="margin-top:20px;">💬 Wealth concepts explained</div>
+        <div id="concepts-list"></div>
+      </div>
     </div>
   </div>
 
@@ -590,6 +652,8 @@ sb.auth.onAuthStateChange(async(event,session)=>{
     document.getElementById('user-avatar').textContent=name.charAt(0).toUpperCase();
     await ensureTables();
     await loadUserData();
+    loadTheme();
+    initQuote();
   }else{
     document.getElementById('app').style.display='none';
     document.getElementById('auth-screen').style.display='flex';
@@ -985,7 +1049,149 @@ function renderSuggestions(){
   document.getElementById('suggestions-list').innerHTML=tips.map(t=>`<div class="tip-card"><div class="tip-icon">${t.icon}</div><div style="flex:1;"><div class="tip-title">${t.title}</div><div class="tip-body">${t.body}</div><span class="tip-tag ${tm[t.tag]}">${tl[t.tag]}</span></div></div>`).join('');
 }
 
-function render(){renderPortfolio();renderBudget();renderExpenses();renderOverview();renderSuggestions();renderDividends();}
+// ─── THEME SWITCHER ───────────────────────────────────────────────────
+const THEMES={
+  dark:{bg:'#080d08',bg2:'#0e140e',bg3:'#141d14',bg4:'#1a271a',border:'rgba(90,160,90,0.12)',border2:'rgba(90,160,90,0.22)',text:'#edf5ed',text2:'#7aaa7a',text3:'#3d6e3d'},
+  midnight:{bg:'#080c14',bg2:'#0f1520',bg3:'#161e2e',bg4:'#1d2840',border:'rgba(99,133,200,0.12)',border2:'rgba(99,133,200,0.22)',text:'#e8edf5',text2:'#7a8db0',text3:'#3d4f6e'},
+  charcoal:{bg:'#111111',bg2:'#1a1a1a',bg3:'#222222',bg4:'#2a2a2a',border:'rgba(150,150,150,0.12)',border2:'rgba(150,150,150,0.22)',text:'#f0f0f0',text2:'#999999',text3:'#555555'},
+  wine:{bg:'#140810',bg2:'#1e0f1a',bg3:'#281524',bg4:'#321c2e',border:'rgba(180,90,150,0.12)',border2:'rgba(180,90,150,0.22)',text:'#f5edf3',text2:'#b07aa0',text3:'#6e3d62'},
+  light:{bg:'#f0f4f8',bg2:'#ffffff',bg3:'#e8edf3',bg4:'#d8e0ea',border:'rgba(0,0,0,0.08)',border2:'rgba(0,0,0,0.15)',text:'#1a202c',text2:'#4a5568',text3:'#a0aec0'}
+};
+function setTheme(name){
+  const t=THEMES[name];if(!t)return;
+  const r=document.documentElement.style;
+  r.setProperty('--bg',t.bg);r.setProperty('--bg2',t.bg2);r.setProperty('--bg3',t.bg3);r.setProperty('--bg4',t.bg4);
+  r.setProperty('--border',t.border);r.setProperty('--border2',t.border2);
+  r.setProperty('--text',t.text);r.setProperty('--text2',t.text2);r.setProperty('--text3',t.text3);
+  document.querySelectorAll('.theme-swatch').forEach(s=>s.classList.remove('active'));
+  const sw=document.getElementById('swatch-'+name);if(sw)sw.classList.add('active');
+  // persist theme
+  localStorage.setItem('leruo_theme',name);
+}
+function loadTheme(){const t=localStorage.getItem('leruo_theme');if(t)setTheme(t);}
+
+// ─── DAILY QUOTES ─────────────────────────────────────────────────────
+const QUOTES=[
+  {text:"The stock market is a device for transferring money from the impatient to the patient.",author:"Warren Buffett"},
+  {text:"Do not save what is left after spending, but spend what is left after saving.",author:"Warren Buffett"},
+  {text:"An investment in knowledge pays the best interest.",author:"Benjamin Franklin"},
+  {text:"The habit of saving is itself an education; it fosters every virtue, teaches self-denial, cultivates the sense of order, trains to forethought, and so broadens the mind.",author:"T.T. Munger"},
+  {text:"Financial freedom is available to those who learn about it and work for it.",author:"Robert Kiyosaki"},
+  {text:"It's not how much money you make, but how much money you keep, how hard it works for you, and how many generations you keep it for.",author:"Robert Kiyosaki"},
+  {text:"The goal isn't more money. The goal is living life on your terms.",author:"Chris Brogan"},
+  {text:"Wealth is not about having a lot of money; it's about having a lot of options.",author:"Chris Rock"},
+  {text:"You must gain control over your money or the lack of it will forever control you.",author:"Dave Ramsey"},
+  {text:"Money is a terrible master but an excellent servant.",author:"P.T. Barnum"},
+  {text:"The real measure of your wealth is how much you'd be worth if you lost all your money.",author:"Unknown"},
+  {text:"Opportunities come infrequently. When it rains gold, put out the bucket, not the thimble.",author:"Warren Buffett"},
+  {text:"Rich people have small TVs and big libraries, and poor people have small libraries and big TVs.",author:"Zig Ziglar"},
+  {text:"Investing should be more like watching paint dry or watching grass grow. If you want excitement, take $800 and go to Las Vegas.",author:"Paul Samuelson"},
+  {text:"The individual investor should act consistently as an investor and not as a speculator.",author:"Benjamin Graham"},
+  {text:"In investing, what is comfortable is rarely profitable.",author:"Robert Arnott"},
+  {text:"How many millionaires do you know who have become wealthy by investing in savings accounts?",author:"Robert G. Allen"},
+  {text:"Wide diversification is only required when investors do not understand what they are doing.",author:"Warren Buffett"},
+  {text:"The four most dangerous words in investing are: 'this time it's different.'",author:"Sir John Templeton"},
+  {text:"Know what you own, and know why you own it.",author:"Peter Lynch"},
+  {text:"Price is what you pay. Value is what you get.",author:"Warren Buffett"},
+  {text:"Time in the market beats timing the market.",author:"Ken Fisher"},
+  {text:"The best time to plant a tree was 20 years ago. The second best time is now.",author:"Chinese Proverb"},
+  {text:"Someone is sitting in the shade today because someone planted a tree a long time ago.",author:"Warren Buffett"},
+  {text:"Compound interest is the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it.",author:"Albert Einstein"},
+  {text:"A budget is telling your money where to go instead of wondering where it went.",author:"Dave Ramsey"},
+  {text:"Too many people spend money they haven't earned to buy things they don't want to impress people they don't like.",author:"Will Rogers"},
+  {text:"Never spend your money before you have it.",author:"Thomas Jefferson"},
+  {text:"Beware of little expenses; a small leak will sink a great ship.",author:"Benjamin Franklin"},
+  {text:"Every time you borrow money, you're robbing your future self.",author:"Nathan W. Morris"},
+];
+let currentQuoteIdx=-1;
+function getDailyQuote(){
+  const day=new Date().getDate();
+  return QUOTES[day%QUOTES.length];
+}
+function refreshQuote(){
+  currentQuoteIdx=(currentQuoteIdx+1)%QUOTES.length;
+  const q=QUOTES[currentQuoteIdx];
+  document.getElementById('quote-text').textContent=q.text;
+  document.getElementById('quote-author').textContent='— '+q.author;
+}
+function initQuote(){
+  const q=getDailyQuote();
+  currentQuoteIdx=QUOTES.indexOf(q);
+  document.getElementById('quote-text').textContent=q.text;
+  document.getElementById('quote-author').textContent='— '+q.author;
+}
+
+// ─── BOOKS, ARTICLES, PODCASTS ────────────────────────────────────────
+const BOOKS=[
+  {emoji:'📗',title:'Rich Dad Poor Dad',author:'Robert Kiyosaki',desc:'The difference between how the rich and poor think about money, assets and liabilities.',tag:'tag-book',url:'https://www.goodreads.com/book/show/69571.Rich_Dad_Poor_Dad'},
+  {emoji:'📘',title:'The Psychology of Money',author:'Morgan Housel',desc:'Timeless lessons on wealth, greed, and happiness. One of the most important finance books of the decade.',tag:'tag-book',url:'https://www.goodreads.com/book/show/41881472-the-psychology-of-money'},
+  {emoji:'📙',title:'The Millionaire Next Door',author:'Thomas J. Stanley',desc:'Surprising secrets of America\'s wealthy — most millionaires live modestly and build wealth quietly.',tag:'tag-book',url:'https://www.goodreads.com/book/show/998.The_Millionaire_Next_Door'},
+  {emoji:'📕',title:'Think and Grow Rich',author:'Napoleon Hill',desc:'Classic on the mindset and principles behind building wealth and achieving success.',tag:'tag-book',url:'https://www.goodreads.com/book/show/30186948-think-and-grow-rich'},
+  {emoji:'📗',title:'The Intelligent Investor',author:'Benjamin Graham',desc:'The definitive book on value investing — Warren Buffett\'s favourite and most recommended book.',tag:'tag-book',url:'https://www.goodreads.com/book/show/106835.The_Intelligent_Investor'},
+  {emoji:'📘',title:'I Will Teach You To Be Rich',author:'Ramit Sethi',desc:'A practical 6-week programme for automating your finances, investing and building wealth.',tag:'tag-book',url:'https://www.goodreads.com/book/show/40591670-i-will-teach-you-to-be-rich'},
+  {emoji:'📙',title:'Your Money or Your Life',author:'Vicki Robin',desc:'Transform your relationship with money and achieve financial independence step by step.',tag:'tag-book',url:'https://www.goodreads.com/book/show/78428.Your_Money_or_Your_Life'},
+  {emoji:'📕',title:'The Richest Man in Babylon',author:'George S. Clason',desc:'Ancient parables set in Babylon that reveal timeless secrets to building and keeping wealth.',tag:'tag-book',url:'https://www.goodreads.com/book/show/1052.The_Richest_Man_in_Babylon'},
+];
+
+const ARTICLES=[
+  {emoji:'📰',title:'How compound interest works — and why starting early matters',desc:'A simple breakdown of why time is your most powerful wealth-building tool.',tag:'tag-article',url:'https://www.investopedia.com/terms/c/compoundinterest.asp'},
+  {emoji:'📰',title:'The 50/30/20 budget rule explained',desc:'A simple framework: 50% needs, 30% wants, 20% savings and investments.',tag:'tag-article',url:'https://www.investopedia.com/ask/answers/022916/what-502030-budget-rule.asp'},
+  {emoji:'📰',title:'What is an ETF and why do experts love them?',desc:'Exchange-traded funds offer diversification at low cost — here\'s why they\'re a great starting point.',tag:'tag-article',url:'https://www.investopedia.com/terms/e/etf.asp'},
+  {emoji:'📰',title:'How to build a 6-month emergency fund',desc:'Step-by-step guide to creating a financial safety net before investing aggressively.',tag:'tag-article',url:'https://www.nerdwallet.com/article/banking/emergency-fund-why-it-matters'},
+  {emoji:'📰',title:'Understanding dividend investing',desc:'How to build passive income through dividend-paying stocks and how to evaluate them.',tag:'tag-article',url:'https://www.investopedia.com/terms/d/dividend.asp'},
+  {emoji:'📰',title:'Net worth vs income — which matters more?',desc:'Why your net worth is a far better measure of financial health than how much you earn.',tag:'tag-article',url:'https://www.investopedia.com/articles/personal-finance/040915/why-net-worth-more-important-income.asp'},
+];
+
+const LEARN=[
+  {emoji:'🎙️',title:'We Study Billionaires',desc:'Weekly deep dives into how the world\'s greatest investors think and build wealth.',tag:'tag-podcast',url:'https://podcasts.apple.com/podcast/we-study-billionaires/id928933489'},
+  {emoji:'🎙️',title:'The Dave Ramsey Show',desc:'Practical advice on getting out of debt, building savings and investing for the future.',tag:'tag-podcast',url:'https://www.ramseysolutions.com/shows/the-ramsey-show'},
+  {emoji:'🎙️',title:'How I Built This — Guy Raz',desc:'Stories behind the world\'s most successful entrepreneurs and the lessons they learned.',tag:'tag-podcast',url:'https://www.npr.org/series/490248027/how-i-built-this'},
+  {emoji:'▶️',title:'How The Economic Machine Works — Ray Dalio',desc:'A 30-minute video by Bridgewater founder Ray Dalio explaining how economies work in simple terms.',tag:'tag-video',url:'https://www.youtube.com/watch?v=PHe0bXAIuk0'},
+  {emoji:'▶️',title:'The Power of Compound Interest',desc:'Visual explainer on why starting to invest even small amounts early makes a massive difference.',tag:'tag-video',url:'https://www.youtube.com/watch?v=wf91rEGw88Q'},
+  {emoji:'▶️',title:'Warren Buffett — The Documentary',desc:'Full documentary on how Warren Buffett built Berkshire Hathaway and his investment philosophy.',tag:'tag-video',url:'https://www.youtube.com/watch?v=PB5fVGZ0n8Q'},
+];
+
+const CONCEPTS=[
+  {emoji:'💡',title:'What is net worth?',desc:'Net worth = everything you own (assets) minus everything you owe (liabilities). It\'s the truest measure of your financial position.'},
+  {emoji:'💡',title:'Assets vs liabilities',desc:'Assets put money in your pocket (investments, rental property, dividends). Liabilities take money out (loans, debt, depreciating items).'},
+  {emoji:'💡',title:'The 4% rule',desc:'A retirement guideline: if you can live on 4% of your investments per year, you\'re financially independent. E.g. €500k invested → €20k/year.'},
+  {emoji:'💡',title:'Dollar-cost averaging (DCA)',desc:'Investing a fixed amount regularly regardless of price — removes emotion and averages out your cost over time. Great for volatile assets like crypto or stocks.'},
+  {emoji:'💡',title:'What is a stokvel?',desc:'A South African rotating savings club. Members contribute regularly and take turns receiving the full pot. A powerful community wealth tool when managed well.'},
+  {emoji:'💡',title:'Diversification explained',desc:'Spreading investments across different asset types (stocks, bonds, property, cash) so a loss in one area doesn\'t wipe out your whole portfolio.'},
+];
+
+function switchSugTab(tab){
+  ['tips','reads','learn'].forEach(t=>{
+    document.getElementById('sug-tab-'+t).classList.toggle('active',t===tab);
+    document.getElementById('sug-view-'+t).style.display=t===tab?'block':'none';
+  });
+}
+
+function renderContentCards(containerId,items){
+  const el=document.getElementById(containerId);if(!el)return;
+  el.innerHTML=items.map(item=>`
+    <div class="content-card" onclick="${item.url?`openLink('${item.url}')`:''}" style="${item.url?'':'cursor:default;'}">
+      <div class="content-emoji">${item.emoji}</div>
+      <div style="flex:1;min-width:0;">
+        <span class="content-tag ${item.tag}">${item.tag.replace('tag-','')}</span>
+        <div class="content-title">${item.title}</div>
+        ${item.author?`<div style="font-size:10px;color:var(--blue);margin-bottom:3px;">${item.author}</div>`:''}
+        <div class="content-desc">${item.desc}</div>
+        ${item.url?`<div style="font-size:10px;color:var(--blue);margin-top:5px;">Tap to read →</div>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function openLink(url){window.open(url,'_blank');}
+
+function renderReads(){
+  renderContentCards('books-list',BOOKS);
+  renderContentCards('articles-list',ARTICLES);
+  renderContentCards('learn-list',LEARN);
+  renderContentCards('concepts-list',CONCEPTS.map(c=>({...c,tag:'tag-info',url:null})));
+}
+
+function render(){renderPortfolio();renderBudget();renderExpenses();renderOverview();renderSuggestions();renderDividends();renderReads();}
 
 // ─── IMMEDIATE SESSION CHECK ──────────────────────────────────────────
 // Check for existing session right away, don't wait for auth state change
